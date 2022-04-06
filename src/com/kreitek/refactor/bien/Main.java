@@ -1,44 +1,59 @@
 package com.kreitek.refactor.bien;
 
-import com.kreitek.refactor.bien.domain.DNI;
-import com.kreitek.refactor.bien.domain.TIPODNI;
+import com.kreitek.refactor.bien.domain.identifications.CIF;
+import com.kreitek.refactor.bien.domain.identifications.DNI;
+import com.kreitek.refactor.bien.domain.identifications.NIE;
+import com.kreitek.refactor.bien.domain.utils.Console;
+import com.kreitek.refactor.bien.domain.validators.ValidatorCif;
+import com.kreitek.refactor.bien.domain.validators.ValidatorDni;
+import com.kreitek.refactor.bien.domain.validators.ValidatorNie;
+import com.kreitek.refactor.bien.interfaces.Identification;
+import com.kreitek.refactor.bien.interfaces.StringPrinter;
+import com.kreitek.refactor.bien.interfaces.Validator;
 
-class  Main
-{
-    public static void main(String args[])
-    {
-        System.out.println("=====================");
-        System.out.println("Vamos a refactorizar!");
-        System.out.println("=====================");
+class Main {
+    static StringPrinter stringPrinter = Console.getInstance();
 
-        // creamos un DNI correcto
-        DNI dniCorrecto = new DNI(TIPODNI.DNI, "11111111H", null);
-        Boolean esValido = (dniCorrecto.validarDNI() == 1);
-        System.out.println( "DNI " + dniCorrecto.numDNI + " es: " + esValido.toString());
+    public static void main(String args[]) {
 
-        // creamos un DNI incorrecto
-        DNI dniIncorrecto01 = new DNI(TIPODNI.DNI, "24324356A", null);
-        Boolean esValido01 = (dniIncorrecto01.validarDNI() == 1);
-        System.out.println( "DNI " + dniIncorrecto01.numDNI + " es: " + esValido01.toString());
+        printMessage();
 
-        // creamos un NIE correcto
-        DNI nieCorrecto = new DNI(TIPODNI.NIE, "X0932707B", null);
-        Boolean esValidoNie = (nieCorrecto.validarDNI() == 1);
-        System.out.println( "NIE " + nieCorrecto.numDNI + " es: " + esValidoNie.toString());
+        Validator dniValidator = new ValidatorDni();
+        Validator cifValidator = new ValidatorCif();
+        Validator nieValidator = new ValidatorNie();
 
-        // creamos un NIE incorrecto
-        DNI nieIncorrecto = new DNI(TIPODNI.NIE, "Z2691139Z", null);
-        Boolean esValidoNieIncorrecto = (nieIncorrecto.validarDNI() == 1);
-        System.out.println( "NIE " + nieIncorrecto.numDNI + " es: " + esValidoNieIncorrecto.toString());
+        Identification dniCorrecto = new DNI("11111111H", dniValidator);
 
-        // creamos un CIF correcto
-        DNI cifCorrecto = new DNI(TIPODNI.CIF, "W9696294I", null);
-        Boolean esValidoCIF = (cifCorrecto.validarDNI() == 1);
-        System.out.println( "CIF " + cifCorrecto.numDNI + " es: " + esValidoCIF.toString());
+        stringPrinter.print("DNI " + dniCorrecto.getIdentification() + " es: " + (dniCorrecto.validate() ? "true" : "false"));
 
-        // creamos un CIF incorrecto
-        DNI cifIncorrecto = new DNI(TIPODNI.CIF, "W9696294A", null);
-        Boolean esValidoCifIncorrecto = (cifIncorrecto.validarDNI() == 1);
-        System.out.println( "NIE " + cifIncorrecto.numDNI + " es: " + esValidoCifIncorrecto.toString());
+        Identification dniIncorrecto01 = new DNI("24324356A", dniValidator);
+
+        stringPrinter.print("DNI " + dniIncorrecto01.getIdentification() + " es: " + (dniIncorrecto01.validate() ? "true" : "false"));
+
+        Identification nieCorrecto = new NIE("X0932707B", nieValidator);
+
+        stringPrinter.print("NIE " + nieCorrecto.getIdentification() + " es: " + (nieCorrecto.validate() ? "true" : "false"));
+
+        Identification nieIncorrecto = new NIE("Z2691139Z", nieValidator);
+
+        stringPrinter.print("NIE " + nieIncorrecto.getIdentification() + " es: " + (nieIncorrecto.validate() ? "true" : "false"));
+
+        Identification cifCorrecto = new CIF("W9696294I", cifValidator);
+
+        stringPrinter.print("CIF " + cifCorrecto.getIdentification() + " es: " + (cifCorrecto.validate() ? "true" : "false"));
+
+        Identification cifIncorrecto = new CIF("W9696294A", cifValidator);
+
+        stringPrinter.print("CIF " + cifIncorrecto.getIdentification() + " es: " + (cifIncorrecto.validate() ? "true" : "false"));
+
     }
+
+    private static void printMessage() {
+
+        stringPrinter.print("=====================");
+        stringPrinter.print("Vamos a refactorizar!");
+        stringPrinter.print("=====================");
+    }
+
+
 }
