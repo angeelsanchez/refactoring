@@ -1,4 +1,4 @@
-package com.kreitek.refactor.bien;
+package com.kreitek.refactor.bien.domain;
 
 public enum TipoUltCaracter
 {
