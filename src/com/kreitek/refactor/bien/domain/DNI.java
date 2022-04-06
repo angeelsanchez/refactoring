@@ -1,4 +1,4 @@
-package com.kreitek.refactor.bien;
+package com.kreitek.refactor.bien.domain;
 
 import java.util.Date;
 import java.util.regex.Matcher;
