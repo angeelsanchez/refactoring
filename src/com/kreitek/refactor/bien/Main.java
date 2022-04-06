@@ -1,5 +1,8 @@
 package com.kreitek.refactor.bien;
 
+import com.kreitek.refactor.bien.domain.DNI;
+import com.kreitek.refactor.bien.domain.TIPODNI;
+
 class  Main
 {
     public static void main(String args[])
